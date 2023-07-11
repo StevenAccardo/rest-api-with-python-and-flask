@@ -15,7 +15,7 @@ blp = Blueprint("Stores", __name__, description="Operations on stores.")
 class Store(MethodView):
     @blp.response(200, StoreSchema)
     def get(self, store_id):
-        StoreModel.get_or_404(store_id)
+        return StoreModel.query.get_or_404(store_id)
 
     def delete(self, store_id):
         store = StoreModel.query.get_or_404(store_id)
@@ -27,8 +27,8 @@ class Store(MethodView):
 class StoreList(MethodView):
     @blp.response(200, StoreSchema(many=True))
     def get(self):
-        stores = StoreModel.query.all()
-        return stores
+        return StoreModel.query.all()
+       
 
     @blp.arguments(StoreSchema)
     @blp.response(201, StoreSchema)

@@ -15,8 +15,8 @@ class Item(MethodView):
 
     def get(self, item_id):
         # We can leverage this method due to using the flask-SQLalchemy library instead of just the SQLalchemy library. This uses the ItemObject's id to query the record and returns 404 if not found.
-        item = ItemModel.query.get_or_404(item_id)
-        return item
+        return ItemModel.query.get_or_404(item_id)
+
 
     def delete(self, item_id):
         item = ItemModel.query.get_or_404(item_id)
