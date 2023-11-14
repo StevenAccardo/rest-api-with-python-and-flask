@@ -1,7 +1,15 @@
-flask
+# Lightweight http server framework for python
+# Locked at 2.3.3 as latest version before current major change version of 3.0.0 which introduces breaking changes into this application.
+flask==2.3.3
+# Library for creating REST APIs. Relies extensively on the marshmallow ecosystem to serialize and deserialize data. Also assists in documenting the API with OpenAPI spec.
 flask-smorest
-python-dotenv
-sqlalchemy
+# Library that extends flask and adds support for more easily working with SQLAlchemy in flask application
 flask-sqlalchemy
+# ORM and more for working with SQL databases
+sqlalchemy
+# Allows the application to leverage env vars stored in a .env file
+python-dotenv
+# Library for working with JWTs
 flask-jwt-extended
+# Library for hashing passwords
 passlib

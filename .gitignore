@@ -1,4 +1,5 @@
 __pycache__
-.conda
 .vscode/
 instance/
+.venv/
+.env
