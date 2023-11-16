@@ -13,3 +13,5 @@ python-dotenv
 flask-jwt-extended
 # Library for hashing passwords
 passlib
+# Library for enabling and managing CORS
+flask-cors==4.0.0

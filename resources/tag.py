@@ -13,14 +13,18 @@ blp = Blueprint("Tags", __name__, description="Operations on tags")
 @blp.route("/store/<int:store_id>/tag")
 class TagsInStore(MethodView):
     @jwt_required()
+    # Uses the schema to define/shape the main response JSON. If a returned property is not included in the schema, then it will be removed from the response JSON returned to the client.
     @blp.response(200, TagSchema(many=True))
     def get(self, store_id):
         store = StoreModel.query.get_or_404(store_id)
 
         return store.tags.all()
 
+
     @jwt_required(fresh=True)
+    # Uses the schema to define/validate request JSON, and then passess that validated JSON as a dictionary to the method as the 2nd argument.
     @blp.arguments(TagSchema)
+    # Uses the schema to define/shape the main response JSON. If a returned property is not included in the schema, then it will be removed from the response JSON returned to the client.
     @blp.response(201, TagSchema)
     def post(self, tag_data, store_id):
         tag = TagModel(**tag_data, store_id=store_id)
@@ -39,6 +43,7 @@ class TagsInStore(MethodView):
 @blp.route("/item/<int:item_id>/tag/<int:tag_id>")
 class LinkTagsToItem(MethodView):
     @jwt_required()
+    # Uses the schema to define/shape the main response JSON. If a returned property is not included in the schema, then it will be removed from the response JSON returned to the client.
     @blp.response(201, TagSchema)
     def post(self, item_id, tag_id):
         item = ItemModel.query.get_or_404(item_id)
@@ -59,6 +64,7 @@ class LinkTagsToItem(MethodView):
         return tag
 
     @jwt_required(fresh=True)
+    # Uses the schema to define/shape the main response JSON. If a returned property is not included in the schema, then it will be removed from the response JSON returned to the client.
     @blp.response(200, TagAndItemSchema)
     def delete(self, item_id, tag_id):
         item = ItemModel.query.get_or_404(item_id)
@@ -78,17 +84,20 @@ class LinkTagsToItem(MethodView):
 @blp.route("/tag/<int:tag_id>")
 class Tag(MethodView):
     @jwt_required()
+    # Uses the schema to define/shape the main response JSON. If a returned property is not included in the schema, then it will be removed from the response JSON returned to the client.
     @blp.response(200, TagSchema)
     def get(self, tag_id):
         tag = TagModel.query.get_or_404(tag_id)
         return tag
     
     @jwt_required(fresh=True)
+    # Uses the schema to define/shape the main response JSON. If a returned property is not included in the schema, then it will be removed from the response JSON returned to the client.
     @blp.response(
         202,
         description="Deletes a tag if no item is tagged with it.",
         example={"message": "Tag deleted."},
     )
+    # Creates alternate responses
     @blp.alt_response(404, description="Tag not found.")
     @blp.alt_response(
         400,

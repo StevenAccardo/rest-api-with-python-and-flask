@@ -1,7 +1,7 @@
 
 from db import db
 
-
+# Uses flask-sqlalchemy to create sub-classes from a SQLAlchemy declarative class exposed by using the db.Model pattern.
 class UserModel(db.Model):
     __tablename__ = "users"
 

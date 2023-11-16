@@ -4,20 +4,27 @@ from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 from blocklist import BLOCKLIST
 from db import db
+
+#Import our blueprints from their assocaited files and renames them for clarity
 from resources.store import blp as StoreBlueprint
 from resources.item import blp as ItemBlueprint
 from resources.tag import blp as TagBlueprint
 from resources.user import blp as UserBlueprint
 
+# Creating a factory function pattern is not necesarry, but is good practice, and comes in handy when writing tests when you want to create a new flask application without executing app.py explicitly. 
+# create_app is suggested/standard naming practice for this
+# db_url parameter can be used to pass in a different database connection for testing, or etc.
 def create_app(db_url=None):
     # Loads env vars from .env file
     load_dotenv()
     # Instantiates our flask application
     app = Flask(__name__)
-
+    # Enable CORS. Open to all requesting domains
+    CORS(app)
     # Tells flask to bubble any errors/exceptions in any extensions of flask up to the main app so that we can be notified of them.
     app.config["PROPAGATE_EXCEPTIONS"] = True
     # Names the application
@@ -39,7 +46,7 @@ def create_app(db_url=None):
     # Initializes the application using flask-sqlalchemy
     db.init_app(app)
 
-    # Connects flask-smorest with our flask app to help build out REST APIs
+    # Connects flask-smorest extension with our flask app to help build out REST APIs
     api = Api(app)
 
     # Configures the flask-jwt-extended extension to user our secret when encoding and decoding JWTs
@@ -108,10 +115,11 @@ def create_app(db_url=None):
             401,
         )
 
-    # Creates the database tables that are missing from the database.
+    # Manually create an application context since we aren't in the routes directly yet, and then create the database tables that are missing from the database. This will create any tables that aren't already created.
     with app.app_context():
         db.create_all()
 
+    # registers our flask-smorest blueprints
     api.register_blueprint(StoreBlueprint)
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(TagBlueprint)

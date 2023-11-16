@@ -1,6 +1,6 @@
 from db import db
 
-
+# Secondary table that allows us to set up the many-to-many relationship between tags and items
 class ItemsTagsModel(db.Model):
     __tablename__ = "items_tags"
 
