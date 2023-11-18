@@ -4,6 +4,10 @@
 
 ### This portfolio piece shows general programming, containerization, and deployment. So it is not a completely polished piece.
 
+### You can reach swagger docs at {baseURL}/swaggger-ui
+
+### Postman collection can be be found in ./postman directory.
+
 #### Tech Stack Used:
 
 - python

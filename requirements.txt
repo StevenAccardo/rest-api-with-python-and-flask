@@ -2,16 +2,18 @@
 # Locked at 2.3.3 as latest version before current major change version of 3.0.0 which introduces breaking changes into this application.
 flask==2.3.3
 # Library for creating REST APIs. Relies extensively on the marshmallow ecosystem to serialize and deserialize data. Also assists in documenting the API with OpenAPI spec.
-flask-smorest
+flask-smorest==0.42.1
 # Library that extends flask and adds support for more easily working with SQLAlchemy in flask application
-flask-sqlalchemy
+flask-sqlalchemy==3.1.1
 # ORM and more for working with SQL databases
-sqlalchemy
+sqlalchemy==2.0.23
 # Allows the application to leverage env vars stored in a .env file
-python-dotenv
+python-dotenv==1.0.0
 # Library for working with JWTs
-flask-jwt-extended
+flask-jwt-extended==4.5.3
 # Library for hashing passwords
-passlib
+passlib==1.7.4
 # Library for enabling and managing CORS
 flask-cors==4.0.0
+# Library for running Python Flask application in production
+gunicorn==21.2.0
